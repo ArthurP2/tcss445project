@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 public class GUI {
 	
 	final static String USERFILE = "Users.ser";
-	final static String AUCTIONFILE = "Auctions.ser";
+	final static String StorefrontFILE = "Storefronts.ser";
 	
 	/*
 	 * Static names for all the different panels used in the CardLayout
@@ -38,7 +38,7 @@ public class GUI {
 	
 	private JFrame myFrame;
 	private Login myUserLogin;	//Stores the Login object that contains all users
-	private AuctionCalendar myCalendar;
+	private StorefrontCalendar myCalendar;
 	
 	private JPanel inputPanel;	//JPanel that contains all JLabels and JTextFields for existing user login
 	private JPanel buttonPanel;	//JPanel for buttons for existing user login
@@ -62,8 +62,8 @@ public class GUI {
 	private JTextField phoneNumField;	//for registration phone num. input
 	
 	//Used so select which type of user for registration
-	private JRadioButton bidderButton;	
-	private JRadioButton nonprofitButton;
+	private JRadioButton BuyerButton;	
+	private JRadioButton SellerButton;
 	private JRadioButton staffButton;
 	private ButtonGroup buttonGroup;
 	
@@ -82,7 +82,7 @@ public class GUI {
 	 * Constructor for GUI class.
 	 * @param theUserLogin is the Login object that will load and store all the different Users
 	 */
-	public GUI(Login theUserLogin, AuctionCalendar theCalendar) {
+	public GUI(Login theUserLogin, StorefrontCalendar theCalendar) {
 		myUserLogin = theUserLogin;
 		myCalendar = theCalendar;
 		
@@ -107,8 +107,8 @@ public class GUI {
 		emailField = new JTextField(TEXTFIELD_WIDTH);
 		phoneNumField = new JTextField(TEXTFIELD_WIDTH);
 		
-		bidderButton = new JRadioButton("Bidder");
-		nonprofitButton = new JRadioButton("Contact Person");
+		BuyerButton = new JRadioButton("Buyer");
+		SellerButton = new JRadioButton("Seller");
 		staffButton = new JRadioButton("Staff");
 		buttonGroup = new ButtonGroup();
 		
@@ -116,7 +116,7 @@ public class GUI {
 		
 		cLayout = new CardLayout();
 		
-		myFrame = new JFrame("Auction Central");
+		myFrame = new JFrame("Storefront Central");
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -234,13 +234,13 @@ public class GUI {
 						myFrame.repaint();
 					} else {
 						User user = myUserLogin.getUser(usernameField.getText());
-						myCalendar.Load(AUCTIONFILE);
-						if (user instanceof Bidder) {
-							BidderGUI bidGUI = new BidderGUI(user, myUserLogin, myCalendar, containerPanel, cLayout);
+						myCalendar.Load(StorefrontFILE);
+						if (user instanceof Buyer) {
+							BuyerGUI bidGUI = new BuyerGUI(user, myUserLogin, myCalendar, containerPanel, cLayout);
 							clearTextFields();
 							bidGUI.start();
-						} else if (user instanceof Nonprofit) {
-							NonprofitGUI npoGUI = new NonprofitGUI(user, containerPanel, cLayout);
+						} else if (user instanceof Seller) {
+							SellerGUI npoGUI = new SellerGUI(user, containerPanel, cLayout);
 							clearTextFields();
 							npoGUI.start();
 						} else if  (user instanceof Staff) {
@@ -339,14 +339,14 @@ public class GUI {
         regisInputPanel.add(phoneNumField, c);
         
         c.gridy = 7;
-        bidderButton.setActionCommand("1");
-        buttonGroup.add(bidderButton);
-        regisInputPanel.add(bidderButton, c);
+        BuyerButton.setActionCommand("1");
+        buttonGroup.add(BuyerButton);
+        regisInputPanel.add(BuyerButton, c);
         
         c.gridy = 8;
-        nonprofitButton.setActionCommand("2");
-        buttonGroup.add(nonprofitButton);
-        regisInputPanel.add(nonprofitButton, c);
+        SellerButton.setActionCommand("2");
+        buttonGroup.add(SellerButton);
+        regisInputPanel.add(SellerButton, c);
 
         c.gridx = 1;
         c.gridy = 9;

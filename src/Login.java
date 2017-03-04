@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This Class will handle logging into Auction Central.
+ * This Class will handle logging into Storefront Central.
  *  
  * @author Jacob Ackerman
  * @editor Katie Harmon
@@ -29,7 +29,7 @@ public class Login implements java.io.Serializable  {
 	}
 	
 	/**
-     * This function will package up the user and auction hashes into .ser
+     * This function will package up the user and Storefront hashes into .ser
      * files. Call this whenever you want to save all changes. Will return
      * a boolean based on if the update worked (true) or if there was a
      * problem (false).
@@ -52,13 +52,13 @@ public class Login implements java.io.Serializable  {
 	
 	 /**
 	  * This method creates a User object based on the parameters,
-	  * should create Bidder, Nonprofit or Staff based on permission level.
+	  * should create Buyer, Seller or Staff based on permission level.
 	  * @param theName is the name of the user to be created
 	  * @param theUsername is the username of the user to be created
 	  * @param thePassword is the password of the user to be created
 	  * @param theEmail is the email of the user to be created
 	  * @param thePhoneNumber is the phone number of the user to be created
-	  * @param thePermissions is the user's permission level, 1 = Bidder, 2 = Nonprofit, 3 = Staff 
+	  * @param thePermissions is the user's permission level, 1 = Buyer, 2 = Seller, 3 = Staff 
 	  * @return boolean if user was added, true if addUser is successful, false if addUser fails
 	  * @author Kyle Phan
 	  * @version 11/29/16
@@ -67,10 +67,10 @@ public class Login implements java.io.Serializable  {
 			 				   String theEmail, String thePhoneNumber, String thePermissions) {
 		 boolean createSuccessful = false;
 		 if (thePermissions == "1") {
-			 createSuccessful = createAndAddBidder(theName, theUsername, thePassword, theEmail, thePhoneNumber);
+			 createSuccessful = createAndAddBuyer(theName, theUsername, thePassword, theEmail, thePhoneNumber);
 			 
 		 } else if (thePermissions == "2") {
-			 createSuccessful = createAndAddNonprofit(theName, theUsername, thePassword, theEmail, thePhoneNumber);
+			 createSuccessful = createAndAddSeller(theName, theUsername, thePassword, theEmail, thePhoneNumber);
 		 } else if (thePermissions == "3") {
 			 createSuccessful = createAndAddStaff(theName, theUsername, thePassword, theEmail, thePhoneNumber);
 		 }
@@ -79,11 +79,11 @@ public class Login implements java.io.Serializable  {
 	 }
 	
 	/**
-	 * @return true if the bidder was successfully created and added into the system
-	 * @return false if the bidder was not added because the name was already in use
+	 * @return true if the Buyer was successfully created and added into the system
+	 * @return false if the Buyer was not added because the name was already in use
 	 */
-	public boolean createAndAddBidder(String theName, String theUsername, String thePassword, String theEmail, String thePhoneNumber){
-		Bidder temp = new Bidder(theName, theUsername, thePassword, theEmail, thePhoneNumber);
+	public boolean createAndAddBuyer(String theName, String theUsername, String thePassword, String theEmail, String thePhoneNumber){
+		Buyer temp = new Buyer(theName, theUsername, thePassword, theEmail, thePhoneNumber);
 		return addUser(temp);
 	}
 	
@@ -91,8 +91,8 @@ public class Login implements java.io.Serializable  {
 	 * @return true if the Non-profit was succesfully created and added into the system
 	 * @return false if the Non-profit was not added because the name was already in use
 	 */
-	public boolean createAndAddNonprofit(String theName, String theUsername, String thePassword, String theEmail, String thePhoneNumber){
-		Nonprofit temp = new Nonprofit(theName, theUsername, thePassword, theEmail, thePhoneNumber);
+	public boolean createAndAddSeller(String theName, String theUsername, String thePassword, String theEmail, String thePhoneNumber){
+		Seller temp = new Seller(theName, theUsername, thePassword, theEmail, thePhoneNumber);
 		return addUser(temp);
 	}
 	
