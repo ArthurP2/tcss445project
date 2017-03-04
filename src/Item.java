@@ -47,31 +47,31 @@ public class Item implements Serializable {
 		comments = theComments;
 	}
 	
-	/** This function adds a new bid from bidder to myBids if
-	 * 	the bidder has not made a bid before and if the bid is 
+	/** This function adds a new bid from Buyer to myBids if
+	 * 	the Buyer has not made a bid before and if the bid is 
 	 *  greater than startingBid.
 	 * 	@returns true if the bid entered is added to myBids*/
-	public boolean addBid(float bidAmount, String bidderName){
-		if(myBids.containsKey(bidderName)) return false;
+	public boolean addBid(float bidAmount, String BuyerName){
+		if(myBids.containsKey(BuyerName)) return false;
 		else if(bidAmount < startingBid) return false;
-		myBids.put(bidderName, bidAmount);
+		myBids.put(BuyerName, bidAmount);
 		return true;
 	}
 	
-	/** @returns -1 if bidderName is not found in myBids,
-	 * otherwise returns The bid amount that bidderName has placed */
-	public float getBid(String bidderName){
-		if(!myBids.containsKey(bidderName)) return -1;
-		return myBids.get(bidderName);
+	/** @returns -1 if BuyerName is not found in myBids,
+	 * otherwise returns The bid amount that BuyerName has placed */
+	public float getBid(String BuyerName){
+		if(!myBids.containsKey(BuyerName)) return -1;
+		return myBids.get(BuyerName);
 	}
 	
 	
 	/**@return true if the bid was successfully removed
 	 * @return false if the name was not found in the bid list
 	 */
-	public boolean deleteBid(String bidderName){
-		if(myBids.containsKey(bidderName)){
-			myBids.remove(bidderName);
+	public boolean deleteBid(String BuyerName){
+		if(myBids.containsKey(BuyerName)){
+			myBids.remove(BuyerName);
 			return true;
 		}
 		else return false;

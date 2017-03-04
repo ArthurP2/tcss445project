@@ -1,7 +1,7 @@
 /**
  * This is the staff class used to define people that
  * are staff members of Action Central. The unique feature
- * that staff members can do is view all of the auctions from 
+ * that staff members can do is view all of the Storefronts from 
  * the database.
  * 
  * @author Andrew Dinh
@@ -35,12 +35,12 @@ public class Staff extends User implements java.io.Serializable
     }
     
     /**
-     * Views all upcoming auctions in the next month.
-     * @Return Returns a calendar of all of the auctions to be displayed.
+     * Views all upcoming Storefronts in the next month.
+     * @Return Returns a calendar of all of the Storefronts to be displayed.
      */
     
-    public AuctionCalendar viewAuctions() {
-	AuctionCalendar calender = new AuctionCalendar(new AuctionDate(), "Auctions.ser");
+    public StorefrontCalendar viewStorefronts() {
+	StorefrontCalendar calender = new StorefrontCalendar(new StorefrontDate(), "Storefronts.ser");
     	return calender;
     }
 }

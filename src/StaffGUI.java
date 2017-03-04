@@ -24,7 +24,7 @@ public class StaffGUI {
 	
 	final static String STAFFPANEL = "Staff Page";
 	
-	private AuctionCalendar aucCal;
+	private StorefrontCalendar aucCal;
 
 	private Staff myStaff;
 	
@@ -40,7 +40,7 @@ public class StaffGUI {
 	
 	private JPanel myInfoPanel;
 
-	private JTextField numberOfAuction;
+	private JTextField numberOfStorefront;
 	
 	/**
 	 * Constructor class for the staff gui
@@ -53,7 +53,7 @@ public class StaffGUI {
 		myStaff = (Staff) theUser;
 		myContainer = containerPanel;
 		myLayout = cLayout;
-		aucCal = myStaff.viewAuctions();
+		aucCal = myStaff.viewStorefronts();
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class StaffGUI {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				AuctionCalenderGUI auctionCalender = new AuctionCalenderGUI();
-				auctionCalender.start();
+				StorefrontCalenderGUI StorefrontCalender = new StorefrontCalenderGUI();
+				StorefrontCalender.start();
 			}
 			
 		});
@@ -109,7 +109,7 @@ public class StaffGUI {
 		myStaffPanel.add(viewCalender);
 		myStaffPanel.add(adminTools);
 		myStaffPanel.add(logOut);
-		myInfoPanel.add(new JLabel("Max Auctions: " + aucCal.getMaxAuctions()));
+		myInfoPanel.add(new JLabel("Max Storefronts: " + aucCal.getMaxStorefronts()));
 		myMainPanel.add(myInfoPanel, BorderLayout.CENTER);
 		myMainPanel.add(myStaffPanel, BorderLayout.SOUTH);
 		myContainer.add(myMainPanel);
@@ -117,57 +117,57 @@ public class StaffGUI {
 	}
 	
 	/**
-	 * The admin gui when the staff member wants to changes max number of auctions.
+	 * The admin gui when the staff member wants to changes max number of Storefronts.
 	 */
 	
 	private void adminGUI() {
 		myAdminPanel = new JPanel();
 		JPanel editPanel = new JPanel();
 		JPanel buttonPanel = new JPanel();
-		JButton changeMaxAuctions = new JButton("Update Max Auctions");
+		JButton changeMaxStorefronts = new JButton("Update Max Storefronts");
 		JButton cancel = new JButton("Cancel Changes");
 		editPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		numberOfAuction = new JTextField("");
-		JLabel maxAuctionsLabel = new JLabel("Change Max Number of Auctions: ");
+		numberOfStorefront = new JTextField("");
+		JLabel maxStorefrontsLabel = new JLabel("Change Max Number of Storefronts: ");
 		
         c.gridwidth = 1;
         c.gridx = 0;	
         c.gridy = 0;
-        editPanel.add(maxAuctionsLabel, c);
+        editPanel.add(maxStorefrontsLabel, c);
         
 		c.ipadx = 50;	
         c.gridwidth = 2;
         c.gridx = 1;
         c.gridy = 0;
-		editPanel.add(numberOfAuction, c);
+		editPanel.add(numberOfStorefront, c);
 		
-		changeMaxAuctions.addActionListener(new ActionListener() {
+		changeMaxStorefronts.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String string = "";
-				if (numberOfAuction.getText() != null) {
-					string = numberOfAuction.getText();
+				if (numberOfStorefront.getText() != null) {
+					string = numberOfStorefront.getText();
 				}
 				 try {
 				      int i = Integer.parseInt(string.trim());
-				      boolean result = aucCal.setMaxAuctions(i); 
+				      boolean result = aucCal.setMaxStorefronts(i); 
 				      if (result == true) {
-				    	  aucCal.Update("Auctions.ser");
+				    	  aucCal.Update("Storefronts.ser");
 				    	  myAdminPanel.setVisible(false);
 				    	  myInfoPanel.removeAll();
-				    	  myInfoPanel.add(new JLabel("Max Auctions: " + aucCal.getMaxAuctions()));
+				    	  myInfoPanel.add(new JLabel("Max Storefronts: " + aucCal.getMaxStorefronts()));
 				    	  myMainPanel.setVisible(true);
 				    	  myContainer.remove(myAdminPanel);
 				      } else {
-				    	  JOptionPane.showMessageDialog(myAdminPanel, "Error! Entered value can not be used to set the maximum number of auctions. (negative or zero)", 
+				    	  JOptionPane.showMessageDialog(myAdminPanel, "Error! Entered value can not be used to set the maximum number of Storefronts. (negative or zero)", 
 				    			  "Error", JOptionPane.INFORMATION_MESSAGE);
 				      }
 				    }
 				    catch (NumberFormatException nfe)
 				    {
-				    	JOptionPane.showMessageDialog(myAdminPanel, "Error! Entered value can not be used to set the maximum number of auctions. (Not an integer)", 
+				    	JOptionPane.showMessageDialog(myAdminPanel, "Error! Entered value can not be used to set the maximum number of Storefronts. (Not an integer)", 
 				    			  "Error", JOptionPane.INFORMATION_MESSAGE);
 				    }
 			}
@@ -187,7 +187,7 @@ public class StaffGUI {
 		buttonPanel.setLayout(new FlowLayout());
 		myAdminPanel.add(editPanel, BorderLayout.CENTER);
 		myAdminPanel.add(buttonPanel, BorderLayout.SOUTH);
-		buttonPanel.add(changeMaxAuctions);
+		buttonPanel.add(changeMaxStorefronts);
 		buttonPanel.add(cancel);
 		myContainer.add(myAdminPanel);
 		myAdminPanel.setVisible(true);

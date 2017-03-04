@@ -26,7 +26,7 @@ public class User implements java.io.Serializable
 	
 	String myPhoneNumber;
     	
-	AuctionCalendar calendar;
+	StorefrontCalendar calendar;
     /**
      * Constructor for objects of class User.
      */        
@@ -38,7 +38,7 @@ public class User implements java.io.Serializable
         myPassword = "";
         myEmail = "";
         myPhoneNumber = "";
-	calendar = new AuctionCalendar(new AuctionDate(), "String");
+	calendar = new StorefrontCalendar(new StorefrontDate(), "String");
     }
     
     /**
@@ -58,7 +58,7 @@ public class User implements java.io.Serializable
     
     /**
      * Sets the name of the user.
-     * @param theUsername String of the name to use.
+     * @param theName String of the name to use.
      */
     
     public void setName(String theName) {
@@ -112,7 +112,7 @@ public class User implements java.io.Serializable
     
     /**
      * Sets the email of the user.
-     * @param theUsername String of the email to use.
+     * @param theEmail String of the email to use.
      */
     
     public void setEmail(String theEmail) {
@@ -130,7 +130,7 @@ public class User implements java.io.Serializable
     
     /**
      * Sets the phone number of the user.
-     * @param theUsername String of the phone number to use.
+     * @param thePhoneNumber String of the phone number to use.
      */
     
     public void setPhoneNumber(String thePhoneNumber) {
