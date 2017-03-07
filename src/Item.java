@@ -2,161 +2,102 @@ import java.io.*;
 import java.util.*;
 import java.lang.Float;
 
-/**	This class Holds all of the information about an Item that will be Auctioned for an auction.
- * 
- * @author Katie Harmon
- * @version 11-20-2016
- */
-public class Item implements Serializable {
-	private static final long serialVersionUID = -5193649884823674863L;
-	private String name;
-	private String donorName;
-	private HashMap<String, Float> myBids;
-	private String description;
-	private int quantity;
-	private float startingBid;
-	private String condition;
-	private String size;
-	private String comments;
+
+public class Item {
+	private int itemID;
+	private int sellerID;
+	private String iName;
+	private String iDesc;
+	private float iPrice;
+	private int iQuantity;
+	private String iCondition;
+	private String iSize;
+	private String iComment;
 	
 	/** Constructor for the Item class */
-	public Item(String theName){
-		myBids = new HashMap<String, Float>();
-		name = theName;
-		donorName = "";
-		description = "";
-		quantity = 0;
-		startingBid = 0;
-		condition = "";
-		size = "";
-		comments = "";
-		
+	public Item(int iID, int sID, String theName, String theDesc, float thePrice, 
+				int theQuantity, String theCond, String theSize, String theComment) {
+		itemID = iID;
+		sellerID = sID;
+		iName = theName;
+		iDesc = theDesc;
+		iPrice = thePrice;
+		iQuantity = theQuantity;
+		iCondition = theCond;
+		iSize = theSize;
+		iComment = theComment;		
 	}
-	
-	public Item(String theName, String theDonorName, String theDescription,
-				int theQuantity, float theStartingBid, String theCondition,
-				String theSize, String theComments){
-		myBids = new HashMap<String, Float>();
-		name = theName;
-		donorName = theDonorName;
-		description = theDescription;
-		quantity = theQuantity;
-		startingBid = theStartingBid;
-		condition = theCondition;
-		size = theSize;
-		comments = theComments;
+
+	public int getItemID() {
+		return itemID;
 	}
-	
-	/** This function adds a new bid from Buyer to myBids if
-	 * 	the Buyer has not made a bid before and if the bid is 
-	 *  greater than startingBid.
-	 * 	@returns true if the bid entered is added to myBids*/
-	public boolean addBid(float bidAmount, String BuyerName){
-		if(myBids.containsKey(BuyerName)) return false;
-		else if(bidAmount < startingBid) return false;
-		myBids.put(BuyerName, bidAmount);
-		return true;
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
 	}
-	
-	/** @returns -1 if BuyerName is not found in myBids,
-	 * otherwise returns The bid amount that BuyerName has placed */
-	public float getBid(String BuyerName){
-		if(!myBids.containsKey(BuyerName)) return -1;
-		return myBids.get(BuyerName);
+
+	public int getSellerID() {
+		return sellerID;
 	}
-	
-	
-	/**@return true if the bid was successfully removed
-	 * @return false if the name was not found in the bid list
-	 */
-	public boolean deleteBid(String BuyerName){
-		if(myBids.containsKey(BuyerName)){
-			myBids.remove(BuyerName);
-			return true;
-		}
-		else return false;
+
+	public void setSellerID(int sellerID) {
+		this.sellerID = sellerID;
 	}
-	
-	/** Setters */
-	public void setName(String theName){
-		name = theName;
+
+	public String getiName() {
+		return iName;
 	}
-	public void setDonorName(String theDonorName){
-		donorName = theDonorName;
+
+	public void setiName(String iName) {
+		this.iName = iName;
 	}
-	public void setDescription(String theDescription){
-		description = theDescription;
+
+	public String getiDesc() {
+		return iDesc;
 	}
-	public boolean setQuantity(int theQuantity){
-		if(isEqualOrBelowZero((float)theQuantity)) return false;
-		quantity = theQuantity;
-		return true;
+
+	public void setiDesc(String iDesc) {
+		this.iDesc = iDesc;
 	}
-	public boolean setStartingBid(float theStartingBid){
-		if(isEqualOrBelowZero(theStartingBid)) return false;
-		startingBid = theStartingBid;
-		return true;
+
+	public float getiPrice() {
+		return iPrice;
 	}
-	public boolean setCondition(String theCondition){
-		if (isEmptyString(theCondition)) return false;
-		condition = theCondition;
-		return true;
+
+	public void setiPrice(float iPrice) {
+		this.iPrice = iPrice;
 	}
-	public boolean setSize(String theSize){
-		if(!isValidSize(theSize)) return false;
-		size = theSize;
-		return true;
+
+	public int getiQuantity() {
+		return iQuantity;
 	}
-	public void setComments(String theComments){
-		comments = theComments;
+
+	public void setiQuantity(int iQuantity) {
+		this.iQuantity = iQuantity;
 	}
-	
-	
-	/** Getters */
-	public String getName(){
-		return name;
+
+	public String getiCondition() {
+		return iCondition;
 	}
-	public String getDonorName(){
-		return donorName;
+
+	public void setiCondition(String iCondition) {
+		this.iCondition = iCondition;
 	}
-	public String getDescription(){
-		return description;
+
+	public String getiSize() {
+		return iSize;
 	}
-	public int getQuantity(){
-		return quantity;
+
+	public void setiSize(String iSize) {
+		this.iSize = iSize;
 	}
-	public float getStartingBid(){
-		return startingBid;
+
+	public String getiComment() {
+		return iComment;
 	}
-	public String getCondition(){
-		return condition;
+
+	public void setiComment(String iComment) {
+		this.iComment = iComment;
 	}
-	public String getSize(){
-		return size;
-	}
-	public String getComments(){
-		return comments;
-	}
-	
-	/** Helper for setQuantity and setStartingBid */
-	private boolean isEqualOrBelowZero(float value){
-		if(value <= 0) return true; 
-		else return false;
-	}
-	
-	/** helper for SetSize */
-	private boolean isValidSize(String theSize){
-theSize.toLowerCase();
-		if(theSize.equals("small") || theSize.equals("medium") || theSize.equals("large")) return true;
-		else return false;
-	}
-	
-	/** helper for setCondition */
-	private boolean isEmptyString(String theInput) {
-		String blankString = "";
-		if (theInput.equals(blankString)) return true;
-		else return false;
-	}
-	
 }
 
