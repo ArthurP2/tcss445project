@@ -22,6 +22,12 @@ public class User {
         this.isSeller = isSeller;
     }
 
+    public String toString() {
+        return "User: " + userID + " N: " + name + " UN: " + username +
+                " PW: " + password + " EM: " + email + " P#: " + " BAN: " +
+                isBanned + " SELL: " + isSeller;
+    }
+
 // GETTERS AND SETTERS
     public int getUserID() {
         return userID;
