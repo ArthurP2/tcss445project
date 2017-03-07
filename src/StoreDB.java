@@ -15,6 +15,7 @@ public class StoreDB {
 	private static Connection conn;
 	private List<User> BuyerList;
 	private List<User> SellerList;
+	private List<Item> ItemList;
 
 
 	/**
@@ -61,9 +62,9 @@ public class StoreDB {
 				boolean banned = rs.getBoolean("isBanned");
 				boolean seller = rs.getBoolean("isSeller");
 
-				User movie = new User(id, name, username, password, email, phone,
+				User user = new User(id, name, username, password, email, phone,
 										banned, seller);
-				BuyerList.add(movie);
+				BuyerList.add(user);
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -103,9 +104,9 @@ public class StoreDB {
 				boolean banned = rs.getBoolean("isBanned");
 				boolean seller = rs.getBoolean("isSeller");
 
-				User movie = new User(id, name, username, password, email, phone,
+				User user = new User(id, name, username, password, email, phone,
 						banned, seller);
-				SellerList.add(movie);
+				SellerList.add(user);
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -115,5 +116,47 @@ public class StoreDB {
 			}
 		}
 		return SellerList;
+	}
+
+	/**
+	 * Returns a list of Item objects from the database.
+	 * @return list of items
+	 * @throws SQLException
+	 */
+	public List<Item> getItems(int sellerID) throws SQLException {
+		if (conn == null) {
+			createConnection();
+		}
+		Statement stmt = null;
+		String query = "select itemID, sellerID, name, description, price, quantity, conditionType," +
+				" size, comment from apanlili.user where sellerID = " + sellerID;
+
+		ItemList = new ArrayList<Item>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int iID = rs.getInt("itemID");
+				int sID = rs.getInt("sellerID");
+				String name = rs.getString("name");
+				String desc = rs.getString("description");
+				float price = rs.getFloat("price");
+				int quantity  = rs.getInt("quantity");
+				String condition = rs.getString("conditionType");
+				String size = rs.getString("size");
+				String comment = rs.getString("comment");
+
+				Item item = new Item(iID, sID, name, desc, price, quantity,
+									 condition, size, comment);
+				ItemList.add(item);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		return ItemList;
 	}
 }
