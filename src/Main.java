@@ -1,9 +1,17 @@
-
+import java.sql.SQLException;
 
 public class Main {
 	
 	public static void main(String[] args) {
 
+		StoreDB test = new StoreDB();
+		try {
+			test.createConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		StorefrontDate myDate = new StorefrontDate();
 		StorefrontDate aucDate = new StorefrontDate(2016, 12, 6, 12);
 		
