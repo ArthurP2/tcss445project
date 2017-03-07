@@ -88,7 +88,7 @@ public class StoreDB {
 		Statement stmt = null;
 		String query = "select userID, name, username, password, email, phoneNumber," +
 				" isBanned, isSeller from apanlili.user where isBanned = 'false' " +
-				"and isSeller = 'false' ";
+				"and isSeller = 'true' ";
 
 		SellerList = new ArrayList<User>();
 		try {
