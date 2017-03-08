@@ -13,7 +13,11 @@ public class StoreDB {
 	private static String password = "kollunn~";
 	private static String serverName = "cssgate.insttech.washington.edu";
 	private static Connection conn;
-	
+	private List<User> BuyerList;
+	private List<User> SellerList;
+	private List<Item> ItemList;
+
+
 	/**
 	 * Creates a sql connection to MySQL using the properties for
 	 * userid, password and server information.
@@ -31,30 +35,36 @@ public class StoreDB {
 	}
 	
 	/**
-	 * Returns a list of movie objects from the database.
+	 * Returns a list of user objects from the database.
 	 * @return list of movies
 	 * @throws SQLException
 	 */
-	public List<Item> getMovies() throws SQLException {
+	public List<User> getBuyers() throws SQLException {
 		if (conn == null) {
 			createConnection();
 		}
 		Statement stmt = null;
-		String query = "select title, year, length, genre, studioName "
-				+ "from youruwnetid.Movies ";
+		String query = "select userID, name, username, password, email, phoneNumber," +
+				" isBanned, isSeller from apanlili.user where isBanned = 'false' " +
+				"and isSeller = 'false' ";
 
-		list = new ArrayList<Movie>();
+		BuyerList = new ArrayList<User>();
 		try {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				String title = rs.getString("title");
-				int year = rs.getInt("year");
-				int length = rs.getInt("length");
-				String genre = rs.getString("genre");
-				String studioName = rs.getString("studioName");
-				Movie movie = new Movie(title, year, length, genre, studioName);
-				list.add(movie);
+				int id = rs.getInt("userID");
+				String name = rs.getString("name");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String email = rs.getString("email");
+				String phone = rs.getString("phoneNumber");
+				boolean banned = rs.getBoolean("isBanned");
+				boolean seller = rs.getBoolean("isSeller");
+
+				User user = new User(id, name, username, password, email, phone,
+										banned, seller);
+				BuyerList.add(user);
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -63,6 +73,90 @@ public class StoreDB {
 				stmt.close();
 			}
 		}
-		return list;
+		return BuyerList;
+	}
+
+	/**
+	 * Returns a list of user objects from the database.
+	 * @return list of movies
+	 * @throws SQLException
+	 */
+	public List<User> getSellers() throws SQLException {
+		if (conn == null) {
+			createConnection();
+		}
+		Statement stmt = null;
+		String query = "select userID, name, username, password, email, phoneNumber," +
+				" isBanned, isSeller from apanlili.user where isBanned = 'false' " +
+				"and isSeller = 'true' ";
+
+		SellerList = new ArrayList<User>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int id = rs.getInt("userID");
+				String name = rs.getString("name");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String email = rs.getString("email");
+				String phone = rs.getString("phoneNumber");
+				boolean banned = rs.getBoolean("isBanned");
+				boolean seller = rs.getBoolean("isSeller");
+
+				User user = new User(id, name, username, password, email, phone,
+						banned, seller);
+				SellerList.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		return SellerList;
+	}
+
+	/**
+	 * Returns a list of Item objects from the database.
+	 * @return list of items
+	 * @throws SQLException
+	 */
+	public List<Item> getItems(int sellerID) throws SQLException {
+		if (conn == null) {
+			createConnection();
+		}
+		Statement stmt = null;
+		String query = "select itemID, sellerID, name, description, price, quantity, conditionType," +
+				" size, comment from apanlili.user where sellerID = " + sellerID;
+
+		ItemList = new ArrayList<Item>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int iID = rs.getInt("itemID");
+				int sID = rs.getInt("sellerID");
+				String name = rs.getString("name");
+				String desc = rs.getString("description");
+				float price = rs.getFloat("price");
+				int quantity  = rs.getInt("quantity");
+				String condition = rs.getString("conditionType");
+				String size = rs.getString("size");
+				String comment = rs.getString("comment");
+
+				Item item = new Item(iID, sID, name, desc, price, quantity,
+									 condition, size, comment);
+				ItemList.add(item);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		return ItemList;
 	}
 }

@@ -1,148 +1,91 @@
-/**
- * This is the user class that the Bidder, Nonprofit, and staff
- * classes inherit from. It will be used to to contain all of the 
- * getter and setters that each class shares. 
- * 
- * @author Andrew Dinh
- * @version 11/11/2016
- */
 
-public class User implements java.io.Serializable 
-{
-    
-	/**
-	 * Generated serial ID.
-	 */
-	
-	private static final long serialVersionUID = -4482170880572973916L;
+public class User {
 
-	String myName;
-	
-	String myUsername;
-	
-	String myPassword;
-	
-	String myEmail;
-	
-	String myPhoneNumber;
-    	
-	StorefrontCalendar calendar;
-    /**
-     * Constructor for objects of class User.
-     */        
-    
-    public User()
-    {
-        myName = "";
-        myUsername = "";
-        myPassword = "";
-        myEmail = "";
-        myPhoneNumber = "";
-	calendar = new StorefrontCalendar(new StorefrontDate(), "String");
+    private int userID;
+	private String name;
+	private String username;
+	private String password;
+	private String email;
+	private String phoneNum;
+	private boolean isBanned;
+	private boolean isSeller;
+
+    public User(int userID, String name, String username, String password, String email,
+                String phoneNum, boolean isBanned, boolean isSeller) {
+        this.userID = userID;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.isBanned = isBanned;
+        this.isSeller = isSeller;
     }
-    
-    /**
-     * Authenticates the user by checking their username and password.
-     * @param username The string that represents the username
-     * @param password The string that represents the password
-     * @return Returns whether the authentication passed or failed
-     */
-    
-    public  boolean authenticate(String username, String password) {
-    	boolean result = false;
-    	if (myUsername.equals(username) && myPassword.equals(password)) {
-    		result = true;
-    	}
-    	return result;
+
+    public String toString() {
+        return "User: " + userID + " N: " + name + " UN: " + username +
+                " PW: " + password + " EM: " + email + " P#: " + " BAN: " +
+                isBanned + " SELL: " + isSeller;
     }
-    
-    /**
-     * Sets the name of the user.
-     * @param theName String of the name to use.
-     */
-    
-    public void setName(String theName) {
-    	myName = theName;
+
+// GETTERS AND SETTERS
+    public int getUserID() {
+        return userID;
     }
-    
-    /**
-     * Gets the name of the user.
-     * @return Returns the name.
-     */
-    
+
     public String getName() {
-    	return myName;
+        return name;
     }
-    
-    /**
-     * Sets the username of the user.
-     * @param theUsername String of the username to use.
-     */
-    
-    public void setUserName(String theUsername){
-    	myUsername = theUsername;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    
-    /**
-     * Gets the username of the user.
-     * @return Returns the username.
-     */
-    
-    public String getUserName(){
-    	return myUsername;
+
+    public String getUsername() {
+        return username;
     }
-    
-    /**
-     * Sets the password of the user.
-     * @param thePassword String of the password.
-     */
-    
-    public void setPassword(String thePassword){
-    	myPassword = thePassword;
+
+    public void setUsername(String username) {
+        this.username = username;
     }
-    
-    /**
-     * Gets the password of the user.
-     * @return Returns the password.
-     */
-    
+
     public String getPassword() {
-    	return myPassword;
+        return password;
     }
-    
-    /**
-     * Sets the email of the user.
-     * @param theEmail String of the email to use.
-     */
-    
-    public void setEmail(String theEmail) {
-    	myEmail = theEmail;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
-    
-    /**
-     * Gets the email of the user.
-     * @return Returns the email.
-     */
-    
+
     public String getEmail() {
-    	return myEmail;
+        return email;
     }
-    
-    /**
-     * Sets the phone number of the user.
-     * @param thePhoneNumber String of the phone number to use.
-     */
-    
-    public void setPhoneNumber(String thePhoneNumber) {
-    	myPhoneNumber = thePhoneNumber;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
-    /**
-     * Gets the phone number of the user.
-     * @return Returns the phone number.
-     */
-    
-    public String getPhoneNumber() {
-    	return myPhoneNumber;
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+
+    public boolean isSeller() {
+        return isSeller;
+    }
+
+    public void setSeller(boolean seller) {
+        isSeller = seller;
     }
 }
